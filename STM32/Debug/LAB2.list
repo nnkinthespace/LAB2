@@ -547,8 +547,8 @@ int main(void) {
 	setTimer1(100);
  800047e:	2064      	movs	r0, #100	; 0x64
  8000480:	f000 f98e 	bl	80007a0 <setTimer1>
-	setTimer2(50);
- 8000484:	2032      	movs	r0, #50	; 0x32
+	setTimer2(25);
+ 8000484:	2019      	movs	r0, #25
  8000486:	f000 f99f 	bl	80007c8 <setTimer2>
 		while (1) {
  800048a:	e7fe      	b.n	800048a <main+0x26>
@@ -1019,8 +1019,8 @@ void update7SEG(int index){
  8000748:	681b      	ldr	r3, [r3, #0]
  800074a:	2b01      	cmp	r3, #1
  800074c:	d115      	bne.n	800077a <HAL_TIM_PeriodElapsedCallback+0x5e>
-		setTimer2(50);
- 800074e:	2032      	movs	r0, #50	; 0x32
+		setTimer2(25);
+ 800074e:	2019      	movs	r0, #25
  8000750:	f000 f83a 	bl	80007c8 <setTimer2>
 		if (index_led < MAX_LED)
  8000754:	4b0e      	ldr	r3, [pc, #56]	; (8000790 <HAL_TIM_PeriodElapsedCallback+0x74>)
