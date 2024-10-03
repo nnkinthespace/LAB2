@@ -172,46 +172,47 @@ void enPin(int en) {
 	HAL_GPIO_WritePin(GPIOA, Pin[en], RESET);
 }
 void DisplayMatrix(uint8_t value) {
-	if ((value >> 7) & 0x01)
-		HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, RESET);
-	else
-		HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, SET);
+	    if (value & 0x80)
+	        HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, RESET);
+	    else
+	        HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, SET);
 
-	if ((value >> 6) & 0x01)
-		HAL_GPIO_WritePin(ENM1_GPIO_Port, ENM1_Pin, RESET);
-	else
-		HAL_GPIO_WritePin(ENM1_GPIO_Port, ENM1_Pin, SET);
+	    if (value & 0x40)
+	        HAL_GPIO_WritePin(ENM1_GPIO_Port, ENM1_Pin, RESET);
+	    else
+	        HAL_GPIO_WritePin(ENM1_GPIO_Port, ENM1_Pin, SET);
 
-	if ((value >> 5) & 0x01)
-		HAL_GPIO_WritePin(ENM2_GPIO_Port, ENM2_Pin, RESET);
-	else
-		HAL_GPIO_WritePin(ENM2_GPIO_Port, ENM2_Pin, SET);
+	    if (value & 0x20)
+	        HAL_GPIO_WritePin(ENM2_GPIO_Port, ENM2_Pin, RESET);
+	    else
+	        HAL_GPIO_WritePin(ENM2_GPIO_Port, ENM2_Pin, SET);
 
-	if ((value >> 4) & 0x01)
-		HAL_GPIO_WritePin(ENM3_GPIO_Port, ENM3_Pin, RESET);
-	else
-		HAL_GPIO_WritePin(ENM3_GPIO_Port, ENM3_Pin, SET);
+	    if (value & 0x10)
+	        HAL_GPIO_WritePin(ENM3_GPIO_Port, ENM3_Pin, RESET);
+	    else
+	        HAL_GPIO_WritePin(ENM3_GPIO_Port, ENM3_Pin, SET);
 
-	if ((value >> 3) & 0x01)
-		HAL_GPIO_WritePin(ENM4_GPIO_Port, ENM4_Pin, RESET);
-	else
-		HAL_GPIO_WritePin(ENM4_GPIO_Port, ENM4_Pin, SET);
+	    if (value & 0x08)
+	        HAL_GPIO_WritePin(ENM4_GPIO_Port, ENM4_Pin, RESET);
+	    else
+	        HAL_GPIO_WritePin(ENM4_GPIO_Port, ENM4_Pin, SET);
 
-	if ((value >> 2) & 0x01)
-		HAL_GPIO_WritePin(ENM5_GPIO_Port, ENM5_Pin, RESET);
-	else
-		HAL_GPIO_WritePin(ENM5_GPIO_Port, ENM5_Pin, SET);
+	    if (value & 0x04)
+	        HAL_GPIO_WritePin(ENM5_GPIO_Port, ENM5_Pin, RESET);
+	    else
+	        HAL_GPIO_WritePin(ENM5_GPIO_Port, ENM5_Pin, SET);
 
-	if ((value >> 1) & 0x01)
-		HAL_GPIO_WritePin(ENM6_GPIO_Port, ENM6_Pin, RESET);
-	else
-		HAL_GPIO_WritePin(ENM6_GPIO_Port, ENM6_Pin, SET);
+	    if (value & 0x02)
+	        HAL_GPIO_WritePin(ENM6_GPIO_Port, ENM6_Pin, RESET);
+	    else
+	        HAL_GPIO_WritePin(ENM6_GPIO_Port, ENM6_Pin, SET);
 
-	if ((value >> 0) & 0x01)
-		HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, RESET);
-	else
-		HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, SET);
+	    if (value & 0x01)
+	        HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, RESET);
+	    else
+	        HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, SET);
 }
+
 void update7SEG(int index) {
 	clear();
 	switch (index) {
