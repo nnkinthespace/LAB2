@@ -163,28 +163,29 @@ void clear() {
 const int MAX_LED = 4;
 int index_led = 0;
 int Pin[4] = { EN0_Pin, EN1_Pin, EN2_Pin, EN3_Pin };
+int buffer[4] = {1, 2, 3, 4};
 void enPin(int en) {
 	HAL_GPIO_WritePin(GPIOA, Pin[en], RESET);
 }
 void update7SEG(int index) {
 	clear();
 	switch (index) {
-	case 0:
+	case 1:
 		//Display the first 7SEG with led_buffer[0]
 		enPin(0);
 		display7SEG(led_buffer[0]);
 		break;
-	case 1:
+	case 2:
 		//Display the second 7SEG with led_buffer[1]
 		enPin(1);
 		display7SEG(led_buffer[1]);
 		break;
-	case 2:
+	case 3:
 		//Display the third 7SEG with led_buffer[2]
 		enPin(2);
 		display7SEG(led_buffer[2]);
 		break;
-	case 3:
+	case 4:
 		//Display the forth 7SEG with led_buffer[3]
 		enPin(3);
 		display7SEG(led_buffer[3]);
@@ -224,30 +225,19 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	setTimer1(100);
-	setTimer2(25);
-	setTimer3(1000);
+	setTimer2(100);
+	setTimer3(25);
 	while (1) {
-		updateClockBuffer();
 		/* USER CODE END WHILE */
 		//Led Blink
+
 		if (timer1_flag == 1) {
 			setTimer1(100);
 			HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 			HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 		}
-
-		// 7 SEG
 		if (timer2_flag == 1) {
-			setTimer2(25);
-			if (index_led < MAX_LED) {
-				update7SEG(index_led);
-				index_led++;
-			} else {
-				index_led = 0;
-			}
-
-		}
-		if (timer3_flag == 1) {
+			updateClockBuffer();
 			second++;
 			if (second >= 60) {
 				second = 0;
@@ -260,9 +250,20 @@ int main(void) {
 			if (hour >= 24) {
 				hour = 0;
 			}
-			updateClockBuffer();
-			setTimer3(1000);
+			setTimer2(100);
 		}
+		// 7 SEG
+		if (timer3_flag == 1) {
+			updateClockBuffer();
+			if (index_led < MAX_LED) {
+				update7SEG(buffer[index_led]);
+				index_led++;
+			} else {
+				index_led = 0;
+			}
+			setTimer3(25);
+		}
+
 
 		/* USER CODE BEGIN 3 */
 	}
