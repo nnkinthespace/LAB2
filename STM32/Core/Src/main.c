@@ -188,6 +188,31 @@ void update7SEG(int index) {
 		break;
 	}
 }
+const int MAX_LED_MATRIX = 8;
+int index_led_matrix = 0;
+uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+void updateLEDMatrix(int index){
+    switch (index){
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        default:
+            break;
+    }
+}
 /* USER CODE END 0 */
 
 /**
@@ -232,6 +257,40 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		if (timer1_flag == 1) {
+					setTimer1(100);
+					HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+					HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+				}
+
+				// Update Clock
+				if (timer2_flag == 1) {
+					updateClockBuffer();
+					second++;
+					if (second >= 60) {
+						second = 0;
+						minute++;
+					}
+					if (minute >= 60) {
+						minute = 0;
+						hour++;
+					}
+					if (hour >= 24) {
+						hour = 0;
+					}
+					setTimer2(100);
+				}
+				// 7 SEG
+				if (timer3_flag == 1) {
+					updateClockBuffer();
+					if (index_led < MAX_LED) {
+						update7SEG(buffer[index_led]);
+						index_led++;
+					} else {
+						index_led = 0;
+					}
+					setTimer3(25);
+				}
 	}
   /* USER CODE END 3 */
 }
