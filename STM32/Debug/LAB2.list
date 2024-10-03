@@ -768,6 +768,8 @@ int main(void) {
  8000600:	4829      	ldr	r0, [pc, #164]	; (80006a8 <main+0xec>)
  8000602:	f000 fd81 	bl	8001108 <HAL_GPIO_TogglePin>
 		}
+
+		// Update Clock
 		if (timer2_flag == 1) {
  8000606:	4b29      	ldr	r3, [pc, #164]	; (80006ac <main+0xf0>)
  8000608:	681b      	ldr	r3, [r3, #0]

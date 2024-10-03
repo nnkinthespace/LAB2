@@ -236,6 +236,8 @@ int main(void) {
 			HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 			HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 		}
+
+		// Update Clock
 		if (timer2_flag == 1) {
 			updateClockBuffer();
 			second++;
