@@ -243,6 +243,11 @@ void update7SEG(int index) {
 const int MAX_LED_MATRIX = 8;
 int index_led_matrix = 0;
 uint8_t matrix_buffer[8] = { 0x18,0x3C,0x66,0x66,0x7E,0x66,0x66,0x66};
+uint8_t new_matrix_buffer[8];
+uint8_t matrix_buffer0[8] = { 0x18,0x3C,0x66,0x66,0x7E,0x66,0x66,0x66};
+uint8_t matrix_buffer1[8] = {0x3C, 0x24, 0x24, 0x38, 0x38, 0x24, 0x24, 0x3C};
+uint8_t matrix_buffer2[8] = {0x3C, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x3C};
+
 void updateLEDMatrix(int index) {
 	clearMatrix();
 	switch (index) {
@@ -282,6 +287,29 @@ void updateLEDMatrix(int index) {
 		break;
 	}
 }
+#include "main.h"
+
+void transform(uint8_t* input, uint8_t* output, int step) {
+	switch(step % 3) {
+	case 0:
+		for (int i = 0; i < 8; i++) {
+			output[i] = matrix_buffer1[i];
+		}
+		break;
+	case 1:
+		for (int i = 0; i < 8; i++) {
+			output[i] = matrix_buffer2[i];
+		}
+		break;
+	case 2:
+		for (int i = 0; i < 8; i++) {
+			output[i] = matrix_buffer0[i];
+		}
+		break;
+	}
+}
+
+
 /* USER CODE END 0 */
 
 /**
@@ -322,6 +350,7 @@ int main(void) {
 	setTimer2(100);
 	setTimer3(25);
 	setTimer4(25);
+	int step = 0;
 	while (1) {
 		/* USER CODE END WHILE */
 
@@ -365,7 +394,13 @@ int main(void) {
 				updateLEDMatrix(index_led_matrix);
 				index_led_matrix++;
 			} else {
+				transform(matrix_buffer,new_matrix_buffer, step);
+				for (int i = 0; i < MAX_LED_MATRIX; i++)
+				{
+					matrix_buffer[i] = new_matrix_buffer[i];
+				}
 				index_led_matrix = 0;
+				step++;
 			}
 			setTimer4(25);
 		}
