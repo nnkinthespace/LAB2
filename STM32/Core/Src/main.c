@@ -290,7 +290,7 @@ void updateLEDMatrix(int index) {
 #include "main.h"
 
 void transform(uint8_t* input, uint8_t* output, int step) {
-	switch(step % 3) {
+	switch(step) {
 	case 0:
 		for (int i = 0; i < 8; i++) {
 			output[i] = matrix_buffer1[i];
@@ -401,6 +401,10 @@ int main(void) {
 				}
 				index_led_matrix = 0;
 				step++;
+				if (step > 2)
+				{
+					step = 0;
+				}
 			}
 			setTimer4(25);
 		}
